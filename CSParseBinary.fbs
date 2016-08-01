@@ -1,0 +1,459 @@
+// CSParseBinary schema file, Powered by x-studio365 http://x-studio365.com
+
+namespace flatbuffers;
+
+attribute "priority";
+
+struct RotationSkew (force_align: 4) {
+  rotationSkewX:float;
+  rotationSkewY:float;
+}
+
+struct Position (force_align: 4) {
+  x:float;
+  y:float;
+}
+
+struct AnchorPoint (force_align: 4) {
+  scaleX:float;
+  scaleY:float;
+}
+
+struct Scale (force_align: 4) {
+  scaleX:float;
+  scaleY:float;
+}
+
+struct Color (force_align: 1) {
+  a:ubyte;
+  r:ubyte;
+  g:ubyte;
+  b:ubyte;
+}
+
+struct ColorVector (force_align: 4) {
+  vectorX:float;
+  vectorY:float;
+}
+
+struct FlatSize (force_align: 4) {
+  width:float;
+  height:float;
+}
+
+struct CapInsets (force_align: 4) {
+  x:float;
+  y:float;
+  width:float;
+  height:float;
+}
+
+struct BlendFunc (force_align: 4) {
+  src:int;
+  dst:int;
+}
+
+table CSParseBinary {
+  version:string; // version:string (id: 0, required, key);
+  textures:[string];
+  texturePngs:[string];
+  nodeTree:NodeTree;
+  action:NodeAction;
+  animationList:[AnimationInfo];
+}
+
+table NodeTree {
+  classname:string;
+  children:[NodeTree];
+  options:Options;
+  customClassName:string;
+}
+
+/// Options types
+table Options {
+}
+
+table WidgetOptions {
+  name:string;
+  actionTag:int;
+  rotationSkew:RotationSkew;
+  zOrder:int;
+  visible:ubyte = 1;
+  alpha:ubyte = 255;
+  tag:int;
+  position:Position;
+  scale:Scale;
+  anchorPoint:AnchorPoint;
+  color:Color;
+  size:FlatSize;
+  flipX:ubyte;
+  flipY:ubyte;
+  ignoreSize:ubyte;
+  touchEnabled:ubyte;
+  frameEvent:string;
+  customProperty:string;
+  callBackType:string;
+  callBackName:string;
+  layoutComponent:LayoutComponentTable;
+}
+
+table LayoutComponentTable {
+  positionXPercentEnabled:ubyte;
+  positionYPercentEnabled:ubyte;
+  positionXPercent:float;
+  positionYPercent:float;
+  sizeXPercentEnable:ubyte;
+  sizeYPercentEnable:ubyte;
+  sizeXPercent:float;
+  sizeYPercent:float;
+  stretchHorizontalEnabled:ubyte;
+  stretchVerticalEnabled:ubyte;
+  horizontalEdge:string;
+  verticalEdge:string;
+  leftMargin:float;
+  rightMargin:float;
+  topMargin:float;
+  bottomMargin:float;
+}
+
+table SingleNodeOptions {
+  nodeOptions:WidgetOptions;
+}
+
+table SpriteOptions {
+  nodeOptions:WidgetOptions;
+  fileNameData:ResourceData;
+  blendFunc:BlendFunc;
+}
+
+table ParticleSystemOptions {
+  nodeOptions:WidgetOptions;
+  fileNameData:ResourceData;
+  blendFunc:BlendFunc;
+}
+
+table GameMapOptions {
+  nodeOptions:WidgetOptions;
+  fileNameData:ResourceData;
+}
+
+table ButtonOptions {
+  widgetOptions:WidgetOptions;
+  normalData:ResourceData;
+  pressedData:ResourceData;
+  disabledData:ResourceData;
+  fontResource:ResourceData;
+  text:string;
+  fontName:string;
+  fontSize:int;
+  textColor:Color;
+  capInsets:CapInsets;
+  scale9Size:FlatSize;
+  scale9Enabled:ubyte;
+  displaystate:ubyte = 1;
+  outlineEnabled:ubyte;
+  outlineColor:Color;
+  outlineSize:int = 1;
+  shadowEnabled:ubyte;
+  shadowColor:Color;
+  shadowOffsetX:float = 2;
+  shadowOffsetY:float = -2;
+  shadowBlurRadius:int;
+  isLocalized:ubyte;
+}
+
+table CheckBoxOptions {
+  widgetOptions:WidgetOptions;
+  backGroundBoxData:ResourceData;
+  backGroundBoxSelectedData:ResourceData;
+  frontCrossData:ResourceData;
+  backGroundBoxDisabledData:ResourceData;
+  frontCrossDisabledData:ResourceData;
+  selectedState:ubyte;
+  displaystate:ubyte;
+}
+
+table ImageViewOptions {
+  widgetOptions:WidgetOptions;
+  fileNameData:ResourceData;
+  capInsets:CapInsets;
+  scale9Size:FlatSize;
+  scale9Enabled:ubyte;
+}
+
+table TextAtlasOptions {
+  widgetOptions:WidgetOptions;
+  charMapFileData:ResourceData;
+  stringValue:string;
+  startCharMap:string;
+  itemWidth:int;
+  itemHeight:int;
+}
+
+table TextBMFontOptions {
+  widgetOptions:WidgetOptions;
+  fileNameData:ResourceData;
+  text:string;
+  isLocalized:ubyte;
+}
+
+table TextOptions {
+  widgetOptions:WidgetOptions;
+  fontResource:ResourceData;
+  fontName:string;
+  fontSize:int;
+  text:string;
+  areaWidth:int;
+  areaHeight:int;
+  hAlignment:int;
+  vAlignment:int;
+  touchScaleEnable:ubyte;
+  isCustomSize:ubyte;
+  outlineEnabled:ubyte;
+  outlineColor:Color;
+  outlineSize:int = 1;
+  shadowEnabled:ubyte;
+  shadowColor:Color;
+  shadowOffsetX:float = 2;
+  shadowOffsetY:float = -2;
+  shadowBlurRadius:int;
+  isLocalized:ubyte;
+}
+
+table TextFieldOptions {
+  widgetOptions:WidgetOptions;
+  fontResource:ResourceData;
+  fontName:string;
+  fontSize:int;
+  text:string;
+  placeHolder:string;
+  passwordEnabled:ubyte;
+  passwordStyleText:string;
+  maxLengthEnabled:ubyte;
+  maxLength:int;
+  areaWidth:int;
+  areaHeight:int;
+  isCustomSize:ubyte;
+  isLocalized:ubyte;
+}
+
+table LoadingBarOptions {
+  widgetOptions:WidgetOptions;
+  textureData:ResourceData;
+  percent:int = 80;
+  direction:int;
+}
+
+table SliderOptions {
+  widgetOptions:WidgetOptions;
+  barFileNameData:ResourceData;
+  ballNormalData:ResourceData;
+  ballPressedData:ResourceData;
+  ballDisabledData:ResourceData;
+  progressBarData:ResourceData;
+  percent:int = 50;
+  displaystate:ubyte = 1;
+}
+
+table PanelOptions {
+  widgetOptions:WidgetOptions;
+  backGroundImageData:ResourceData;
+  clipEnabled:ubyte;
+  bgColor:Color;
+  bgStartColor:Color;
+  bgEndColor:Color;
+  colorType:int;
+  bgColorOpacity:ubyte;
+  colorVector:ColorVector;
+  capInsets:CapInsets;
+  scale9Size:FlatSize;
+  backGroundScale9Enabled:ubyte;
+}
+
+table ScrollViewOptions {
+  widgetOptions:WidgetOptions;
+  backGroundImageData:ResourceData;
+  clipEnabled:ubyte;
+  bgColor:Color;
+  bgStartColor:Color;
+  bgEndColor:Color;
+  colorType:int;
+  bgColorOpacity:ubyte = 255;
+  colorVector:ColorVector;
+  capInsets:CapInsets;
+  scale9Size:FlatSize;
+  backGroundScale9Enabled:ubyte;
+  innerSize:FlatSize;
+  direction:int;
+  bounceEnabled:ubyte;
+  scrollbarEnabeld:ubyte = 1;
+  scrollbarAutoHide:ubyte = 1;
+  scrollbarAutoHideTime:float = 0.2;
+}
+
+table PageViewOptions {
+  widgetOptions:WidgetOptions;
+  backGroundImageData:ResourceData;
+  clipEnabled:ubyte;
+  bgColor:Color;
+  bgStartColor:Color;
+  bgEndColor:Color;
+  colorType:int;
+  bgColorOpacity:ubyte = 255;
+  colorVector:ColorVector;
+  capInsets:CapInsets;
+  scale9Size:FlatSize;
+  backGroundScale9Enabled:ubyte;
+}
+
+table ListViewOptions {
+  widgetOptions:WidgetOptions;
+  backGroundImageData:ResourceData;
+  clipEnabled:ubyte;
+  bgColor:Color;
+  bgStartColor:Color;
+  bgEndColor:Color;
+  colorType:int;
+  bgColorOpacity:ubyte = 255;
+  colorVector:ColorVector;
+  capInsets:CapInsets;
+  scale9Size:FlatSize;
+  backGroundScale9Enabled:ubyte;
+  innerSize:FlatSize;
+  direction:int;
+  bounceEnabled:ubyte;
+  itemMargin:int;
+  directionType:string;
+  horizontalType:string;
+  verticalType:string;
+}
+
+table ProjectNodeOptions {
+  nodeOptions:WidgetOptions;
+  fileName:string;
+  innerActionSpeed:float;
+}
+
+table ComponentOptions {
+  nodeOptions:WidgetOptions;
+  type:string;
+  comAudioOptions:ComAudioOptions;
+}
+
+table ComAudioOptions {
+  nodeOptions:WidgetOptions;
+  name:string;
+  enabled:ubyte;
+  loop:ubyte;
+  volume:int;
+  fileNameData:ResourceData;
+}
+
+table AnimationInfo {
+  name:string;
+  startIndex:int;
+  endIndex:int;
+}
+
+table NodeAction {
+  duration:int;
+  speed:float;
+  timeLines:[TimeLine];
+  currentAnimationName:string;
+}
+
+table TimeLine {
+  property:string;
+  actionTag:int;
+  frames:[Frame];
+}
+
+table Frame {
+  pointFrame:PointFrame;
+  scaleFrame:ScaleFrame;
+  colorFrame:ColorFrame;
+  textureFrame:TextureFrame;
+  eventFrame:EventFrame;
+  intFrame:IntFrame;
+  boolFrame:BoolFrame;
+  innerActionFrame:InnerActionFrame;
+  blendFrame:BlendFrame;
+}
+
+table PointFrame {
+  frameIndex:int;
+  tween:ubyte = 1;
+  postion:Position;
+  easingData:EasingData;
+}
+
+table ScaleFrame {
+  frameIndex:int;
+  tween:ubyte = 1;
+  scale:Scale;
+  easingData:EasingData;
+}
+
+table ColorFrame {
+  frameIndex:int;
+  tween:ubyte = 1;
+  color:Color;
+  easingData:EasingData;
+}
+
+table TextureFrame {
+  frameIndex:int;
+  tween:ubyte = 1;
+  textureFile:ResourceData;
+  easingData:EasingData;
+}
+
+table EventFrame {
+  frameIndex:int;
+  tween:ubyte = 1;
+  value:string;
+  easingData:EasingData;
+}
+
+table IntFrame {
+  frameIndex:int;
+  tween:ubyte = 1;
+  value:int;
+  easingData:EasingData;
+}
+
+table BoolFrame {
+  frameIndex:int;
+  tween:ubyte = 1;
+  value:ubyte = 1;
+  easingData:EasingData;
+}
+
+table InnerActionFrame {
+  frameIndex:int;
+  tween:ubyte = 1;
+  innerActionType:int;
+  currentAniamtionName:string;
+  singleFrameIndex:int;
+  easingData:EasingData;
+}
+
+table EasingData {
+  type:int = -1;
+  points:[Position];
+}
+
+table ResourceData {
+  path:string;
+  plistFile:string;
+  resourceType:int;
+}
+
+table BlendFrame {
+  frameIndex:int;
+  tween:ubyte = 1;
+  blendFunc:BlendFunc;
+  easingData:EasingData;
+}
+
+root_type CSParseBinary;
